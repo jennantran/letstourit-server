@@ -7,7 +7,7 @@ const { NODE_ENV } = require('./config')
 
 const app = express()
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
     res.send('Hello, world!')
      })
 
