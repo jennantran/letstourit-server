@@ -47,12 +47,12 @@ FavoritesRouter
     })
 
     FavoritesRouter
-        .route('/:faveId')
+        .route('/:place_id')
         .delete((req, res, next) => {
                res.status(204).end()
                FavoritesService.deleteFavorite(
                  req.app.get('db'),
-                 req.params.faveId
+                 req.params.place_id
                )
                  .then(() => {
                    res.status(204).end()
