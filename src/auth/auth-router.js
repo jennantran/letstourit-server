@@ -40,6 +40,7 @@ const jsonBodyParser = express.json()
            console.log(payload);
            res.send({
              authToken: AuthService.createJwt(sub, payload),
+             user_id: dbUser.id
            })
         })
     })
