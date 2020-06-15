@@ -3,36 +3,28 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const { NODE_ENV } = require('./config')
-const {CLIENT_ORIGIN} = require('./config');
+const errorHandler = require('./error-handler')
+const FavoritesRouter = require('./favorites/favorites-router');
+const authRouter = require('./auth/auth-router')
 
 const app = express()
 
+const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common'
+
+app.use(morgan(morganSetting))
+app.use(cors())
+app.use(helmet())
+
+app.use(cors());
+ 
+app.use('/api/favorites', FavoritesRouter)
+
 app.get('/api', (req, res) => {
     res.send('Hello, world!')
-     })
+ })
 
-const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common'
-app.use(morgan(morganSetting))
+app.use('/api/auth', authRouter)
+   
+app.use(errorHandler)
 
-app.use(helmet())
-app.use(cors())
-
-app.use(
-  cors({
-      origin: CLIENT_ORIGIN
-  })
-);
-
-app.use((error, req, res, next) => {
-  let response
-  if (process.env.NODE_ENV === 'production') {
-    response = { error: { message: 'server error' }}
-  } else {
-    response = { error }
-  }
-  res.status(500).json(response)
-})
-
-    
 module.exports = app
