@@ -59,5 +59,27 @@ FavoritesRouter
                  })
                  .catch(next)
               })
+        .post(requireAuth, jsonBodyParser, (req, res, next) => {
+        const { place_id, name, rating, address, user_id } = req.body
+        const newFavorite = { place_id, name, rating, address, user_id }
+
+        for (const [key, value] of Object.entries(newFavorite)) {
+        if (value == null) {
+            return res.status(400).json({
+            error: `Missing '${key}' in request body`
+            })
+        }
+        }
+
+    FavoritesService.insertFavorite(req.app.get('db'), newFavorite)
+        .then((favorite) =>{
+            res 
+                .status(201)
+                .json(serializeFavorite(newFavorite))
+                .end()
+        })
+        .catch(next);
+    })
+        
 
   module.exports = FavoritesRouter
