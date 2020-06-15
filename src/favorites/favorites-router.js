@@ -6,12 +6,13 @@ const xss = require("xss");
 const { requireAuth } = require('../middleware/basic-auth');
 
 const serializeFavorite = (favorite) => ({
-    faveId: favorite.id,
-    favoriteName: xss(favorite.name), 
-    favoriteRating: xss(favorite.rating), 
-    favoriteAddress: xss(favorite.address),
+    id: favorite.id,
+    name: xss(favorite.name), 
+    rating: xss(favorite.rating), 
+    address: xss(favorite.address),
     user_id: favorite.user_id,
 });
+
 
 FavoritesRouter
     .route('/')
