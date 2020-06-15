@@ -46,4 +46,18 @@ FavoritesRouter
         .catch(next);
     })
 
+    FavoritesRouter
+        .route('/:faveId')
+        .delete((req, res, next) => {
+               res.status(204).end()
+               FavoritesService.deleteFavorite(
+                 req.app.get('db'),
+                 req.params.faveId
+               )
+                 .then(() => {
+                   res.status(204).end()
+                 })
+                 .catch(next)
+              })
+
   module.exports = FavoritesRouter

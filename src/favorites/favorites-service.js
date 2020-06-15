@@ -27,9 +27,9 @@ const FavoritesService = {
             .from('save_tour_favorites')
             .where({'user_id': user_id});
     },
-      deleteFavorite(knex , id){
+      deleteFavorite(knex , faveId){
         return knex('save_tour_favorites')
-            .where({ id })
+            .where({ faveId })
             .delete()
     },
 }
