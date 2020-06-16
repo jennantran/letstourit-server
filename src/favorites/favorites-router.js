@@ -13,41 +13,19 @@ const serializeFavorite = (favorite) => ({
     user_id: favorite.user_id,
 });
 
-
 FavoritesRouter
     .route('/')
     .get((req, res, next) => {
-        FavoritesService.getAllFavoritesByUserId(req.app.get('db'), req.headers.user_id)
-          .then(favorites => {
-            res.json(favorites.map(serializeFavorite))
-          })
-          .catch(next)
-      })
-     .all(requireAuth)
-     .post(requireAuth, jsonBodyParser, (req, res, next) => {
-        const { place_id, name, rating, address, user_id } = req.body
-        const newFavorite = { place_id, name, rating, address, user_id }
-
-        for (const [key, value] of Object.entries(newFavorite)) {
-        if (value == null) {
-            return res.status(400).json({
-            error: `Missing '${key}' in request body`
-            })
-        }
-        }
-
-    FavoritesService.insertFavorite(req.app.get('db'), newFavorite)
-        .then((favorite) =>{
-            res 
-                .status(201)
-                .json(serializeFavorite(newFavorite))
-                .end()
+      ArticlesService.Favorites(req.app.get('db'))
+        .then(favorites => {
+          res.json(favorites.map(FavoritesService.serializeFavorites))
         })
-        .catch(next);
+        .catch(next)
     })
-
+    .all(requireAuth)
+  
     FavoritesRouter
-        .route('/:place_id')
+        .route('/:place_id')       
         .delete((req, res, next) => {
                res.status(204).end()
                FavoritesService.deleteFavorite(
@@ -60,9 +38,9 @@ FavoritesRouter
                  .catch(next)
               })
         .post(requireAuth, jsonBodyParser, (req, res, next) => {
-        const { place_id, name, rating, address, user_id } = req.body
-        const newFavorite = { place_id, name, rating, address, user_id }
-
+        const { id, name, rating, address, user_id } = req.body
+        const newFavorite = { id, name, rating, address, user_id }
+        console.log(newFavorite);
         for (const [key, value] of Object.entries(newFavorite)) {
         if (value == null) {
             return res.status(400).json({
@@ -70,7 +48,15 @@ FavoritesRouter
             })
         }
         }
-
+        // .get((req, res, next) => {
+        //     FavoritesService.getAllFavoritesByUserId(req.app.get('db'))
+        //       .then(favorites => {
+        //         res.json(favorites.map(FavoritesService.serializeFavorites))
+        //       })
+        //       .catch(next)
+        //   })
+        //   .all(requireAuth)
+        
     FavoritesService.insertFavorite(req.app.get('db'), newFavorite)
         .then((favorite) =>{
             res 
