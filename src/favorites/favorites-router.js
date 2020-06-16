@@ -16,7 +16,7 @@ const serializeFavorite = (favorite) => ({
 FavoritesRouter
     .route('/')
     .get((req, res, next) => {
-      ArticlesService.Favorites(req.app.get('db'))
+      ArticlesService.getAllFavorites(req.app.get('db'))
         .then(favorites => {
           res.json(favorites.map(FavoritesService.serializeFavorites))
         })
