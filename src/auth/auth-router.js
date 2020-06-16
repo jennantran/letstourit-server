@@ -36,8 +36,9 @@ const jsonBodyParser = express.json()
             
            const sub = dbUser.username
            const payload = { user_id: dbUser.id }
-           console.log(sub);
-           console.log(payload);
+           console.log('sub', sub);
+           console.log('payload',payload);
+           console.log('dbUserid',dbUser.id)
            res.send({
              authToken: AuthService.createJwt(sub, payload),
              user_id: dbUser.id
