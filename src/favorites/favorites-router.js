@@ -6,7 +6,7 @@ const xss = require("xss");
 const { requireAuth } = require('../middleware/jwt-auth');
 
 const serializeFavorite = (favorite) => ({
-    id: favorite.id,
+    id: favorite.place_id,
     name: xss(favorite.name), 
     rating: xss(favorite.rating), 
     address: xss(favorite.address),
