@@ -39,7 +39,7 @@ FavoritesRouter
             })
     
     .post(requireAuth, jsonBodyParser, (req, res, next) => {
-        const { id, name, rating, address, user_id } = req.body.place
+        const { id, name, rating, address, user_id } = req.body.faveObject
         const newFavorite = { id, name, rating, address, user_id }
         console.log(newFavorite);
             for (const [key, value] of Object.entries(newFavorite)) {
@@ -51,6 +51,7 @@ FavoritesRouter
             }
         FavoritesService.insertFavorite(req.app.get('db'), newFavorite).then(() => {
             res.status(201)
+            .json(serializeFavorite(newFavorite))
             })
             .catch(next)
     })
