@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const errorHandler = require('./error-handler')
 const FavoritesRouter = require('./favorites/favorites-router');
 const authRouter = require('./auth/auth-router')
+const usersRouter = require('./users/users-router');
 
 const app = express()
 
@@ -24,6 +25,8 @@ app.get('/api', (req, res) => {
  })
 
 app.use('/api/auth', authRouter)
+
+app.use('/api/signUp', usersRouter)
    
 app.use(errorHandler)
 
