@@ -16,7 +16,6 @@ const serializeFavorite = (favorite) => ({
 FavoritesRouter
     .route('/')
     .get((req, res, next) => {
-        console.log('in /')
       FavoritesService.getAllFavoritesByUserId(req.app.get('db'), req.headers.user_id)
         .then(favorites => {
           res.json(favorites.map(serializeFavorite))
@@ -41,7 +40,6 @@ FavoritesRouter
     .post(requireAuth, jsonBodyParser, (req, res, next) => {
         const { id, name, rating, address, user_id } = req.body.faveObject
         const newFavorite = { id, name, rating, address, user_id }
-        console.log(newFavorite);
             for (const [key, value] of Object.entries(newFavorite)) {
             if (value == null) {
                 return res.status(400).json({

@@ -8,8 +8,6 @@ const jsonBodyParser = express.json()
       const { username, password } = req.body
       const loginUser = { username, password }
 
-      console.log(loginUser);
-
       for (const [key, value] of Object.entries(loginUser))
         if (value == null)
           return res.status(400).json({
@@ -21,7 +19,6 @@ const jsonBodyParser = express.json()
        loginUser.username
      )
        .then(dbUser => {
-         console.log(dbUser);
          if (!dbUser)
          return res.status(400).json({
              error: 'blah username or password',
@@ -36,9 +33,7 @@ const jsonBodyParser = express.json()
             
            const sub = dbUser.username
            const payload = { user_id: dbUser.id }
-           console.log('sub', sub);
-           console.log('payload',payload);
-           console.log('dbUserid',dbUser.id)
+  
            res.send({
              authToken: AuthService.createJwt(sub, payload),
              user_id: dbUser.id
