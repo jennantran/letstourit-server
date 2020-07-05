@@ -37,6 +37,15 @@ To start the application: npm run dev
 To run migrations: npm run migrate
 Run the tests: npm run test
 
+API Documentation
+-------
+GET /api/favorites
+DELETE /api/favorites/:place_id
+POST /api/favorites/:place_id
+
+GET api/users
+POST api/users
+
 Screenshots
 -----------
 Homepage:
