@@ -6,10 +6,10 @@ const AuthService = {
     getUserWithUserName(db, username) {
       return db('tour_users')
         .where({ username })
-        .first()
+        .first();
     },
     comparePasswords(password, hash) {
-        return bcrypt.compare(password, hash)
+        return bcrypt.compare(password, hash);
       },
     createJwt(subject, payload) {
         return jwt.sign(payload, config.JWT_SECRET, {
@@ -26,8 +26,8 @@ const AuthService = {
       return Buffer
         .from(token, 'base64')
         .toString()
-        .split(':')
+        .split(':');
     },
   }
   
-  module.exports = AuthService
+  module.exports = AuthService;
