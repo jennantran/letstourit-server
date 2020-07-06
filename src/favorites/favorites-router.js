@@ -54,4 +54,4 @@ FavoritesRouter
             .catch(next);
     });
 
-module.exports = FavoritesRouter
+module.exports = FavoritesRouter;

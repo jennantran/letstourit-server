@@ -1,4 +1,4 @@
-const xss = require('xss')
+const xss = require('xss');
 
 const FavoritesService = {
     getAllFavorites(knex){
@@ -13,12 +13,12 @@ const FavoritesService = {
                 name: `${newFavorite.name}`,
                 rating: `${newFavorite.rating}`, 
                 address: `${newFavorite.address}`, 
-                user_id: `${newFavorite.user_id}`
+                user_id: `${newFavorite.user_id}`,
             })
             .into('save_tour_favorites')
             .returning('*')
             .then(rows => {
-                return rows[0]
+                return rows[0];
         })
     },
     getAllFavoritesByUserId(knex, user_id){
@@ -30,7 +30,7 @@ const FavoritesService = {
       deleteFavorite(knex , place_id ){
         return knex('save_tour_favorites')
             .where({ 'place_id': place_id  })
-            .delete()
+            .delete();
     },
 }
-module.exports = FavoritesService
+module.exports = FavoritesService;
